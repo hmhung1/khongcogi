@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hùng đẹp trai</title>
+    <style>
+        #jumpscare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            visibility: hidden;
+        }
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn:hover {
+            background-color: darkred;
+            transform: scale(1.1);
+        }
+        .btn:active {
+            background-color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" onclick="jumpscare();" value="Đừng ấn zô đây :3" class="btn"/> <!-- Bruh -->
+    <img id="jumpscare" src="./jumpscare.jpg"/>
+    <audio id="scream" src="./jumpscareAudio.mp3"></audio>
+    <script>
+        function requestFullScreen(element) {
+            var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+            if (requestMethod) {
+                requestMethod.call(element);
+            } else if (typeof window.ActiveXObject !== "undefined") {
+                var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript !== null) {
+                    wscript.SendKeys("{F11}"); // Send fullscreen keys. (Only in IE)
+                }
+            }
+        }
+
+        function redirect() {
+            document.location.href = 'https://example.com'; // Redirect link
+        }
+
+        function jumpscare() {
+            var elem = document.body; // Get body HTML element
+            requestFullScreen(elem); // Go fullscreen
+            var jumpscare = document.getElementById("jumpscare"); // Get jumpscare image
+            jumpscare.style.visibility = "visible"; // Show the jumpscare image
+            var audio = document.getElementById("scream"); // Get audio element
+            audio.play(); // Play jumpscare sound
+            //setTimeout(redirect, 3500); // Redirect after 3.5 seconds
+        }
+    </script>
+</body>
+</html>
