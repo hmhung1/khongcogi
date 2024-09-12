@@ -66,6 +66,7 @@
     <!-- Phần hiển thị tác giả -->
     <p class="author">Tác giả: Hà Mạnh Hùng</p>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         document.getElementById('cookieForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Ngăn chặn form submit mặc định
@@ -80,10 +81,10 @@
 
             var apiUrl = `https://alotoi.com/fb/?cookie=${encodeURIComponent(cookie)}&type=${encodeURIComponent(tokenType)}`;
 
-            // Gửi yêu cầu đến API bằng fetch
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
+            // Gửi yêu cầu đến API bằng axios
+            axios.get(apiUrl)
+                .then(response => {
+                    const data = response.data;
                     if (data && data.token) {
                         const token = data.token;
                         document.getElementById('result').textContent = 'Token của bạn là: ' + token;
