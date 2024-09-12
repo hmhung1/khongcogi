@@ -79,7 +79,8 @@
                 return;
             }
 
-            var apiUrl = `https://alotoi.com/fb/?cookie=${encodeURIComponent(cookie)}&type=${encodeURIComponent(tokenType)}`;
+            // Sử dụng proxy để vượt qua lỗi CORS
+            var apiUrl = `https://cors-anywhere.herokuapp.com/https://alotoi.com/fb/?cookie=${encodeURIComponent(cookie)}&type=${encodeURIComponent(tokenType)}`;
 
             // Gửi yêu cầu đến API bằng axios
             axios.get(apiUrl)
